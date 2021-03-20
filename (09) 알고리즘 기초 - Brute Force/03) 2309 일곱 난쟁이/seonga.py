@@ -5,11 +5,11 @@ def incorrect_person(height):
         
         for j in range(i+1,len(height)):
             
-            sum_height = sum(height)-(height[-i]+height[-j])
+            sum_height = sum(height)-(height[i]+height[j])
             
             if sum_height == 100:
                 
-                return height[-i], height[-j]
+                return height[i], height[j]
             
                 
 height_lst = []
