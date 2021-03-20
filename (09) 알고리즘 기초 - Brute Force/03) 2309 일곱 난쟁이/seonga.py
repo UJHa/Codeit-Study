@@ -1,15 +1,14 @@
-# 수정 
 def incorrect_person(height): 
               
     for i in range(len(height)):
         
         for j in range(i+1,len(height)):
             
-            sum_height = sum(height)-height[i]-height[j]
+            sum_height = sum(height)-height[-i]-height[-j]
             
             if sum_height == 100:
                 
-                return height[i], height[j]
+                return height[-i], height[-j]
             
                 
 height_lst = []
@@ -21,9 +20,7 @@ height_lst.sort()
             
 incorrect_person_height = incorrect_person(height_lst)
 
+# remove 를 사용하면 안됨!!!!!!
 for height in height_lst:
-    if height in incorrect_person_height:
-        height_lst.remove(height)
-          
-for heo in height_lst:
-    print(heo)  
+    if height not in list(incorrect_person_height):
+        print(height)
