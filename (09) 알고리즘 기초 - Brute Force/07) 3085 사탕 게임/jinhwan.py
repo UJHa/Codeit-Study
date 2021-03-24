@@ -1,58 +1,60 @@
 # (3085) 사탕 게임
-# 푸는 중...(아직 오답)
-SWAP_COUNT = 1
-def get_both_side_lines(line_index):
-    result = []
-    if line_index == 0:
-        result = [line_index + 1]
-    elif line_index == len(candies) - 1:
-        result = [line_index - 1]
-    else:
-        result = [line_index - 1, line_index + 1]
-    return result
+def shuffle(check_candies, pos_x, pos_y, direction):
+    change_target_x = x + direction[0]
+    change_target_y = y + direction[1]
+
+    # 바꾸려는 사탕 위치가 배열 밖일 때 무시하도록 조건 설정
+    if change_target_x < 0 or change_target_x > n - 1 \
+            or change_target_y < 0 or change_target_y > n - 1:
+        return
+
+    candies[y][x], candies[change_target_y][change_target_x] = candies[change_target_y][change_target_x], candies[y][x]
 
 
-def find_candy_max(candies, color):
-    max_candy = 0
-    # 가로 축 최대 개수 찾기
-    for y in range(len(candies)):
-        candy_count = 0
-        swap_time = 0
-        check_line = get_both_side_lines(y)
+def get_eat_count(candies, pos_x, pos_y):
+    check_color = candies[pos_y][pos_x]
+    # print(check_color)
 
-        for x in range(len(candies[0])):
-            if candies[y][x] == color:
-                candy_count += 1
-            elif swap_time == 0:
-                for line_i in check_line:
-                    if candies[line_i][x] == color:
-                        candy_count += 1
-                        swap_time += 1
-                        break
-            else:
-                candy_count = 0
-        max_candy = max(max_candy, candy_count)
+    # 가로 축 최대 길이 파악
+    index = pos_x
+    x_length = 0
+    while index < len(candies[pos_y]):
+        if candies[pos_y][index] == check_color:
+            x_length += 1
+        else:
+            break
+        index += 1
 
-    for x in range(len(candies)):
-        candy_count = 0
-        swap_time = 0
-        check_line = get_both_side_lines(x)
+    index = pos_x
+    while index >= 0:
+        if candies[pos_y][index] == check_color:
+            x_length += 1
+        else:
+            break
+        index -= 1
 
-        for y in range(len(candies[0])):
-            if candies[y][x] == color:
-                candy_count += 1
-            elif swap_time == 0:
-                for line_i in check_line:
-                    if candies[line_i][x] == color:
-                        candy_count += 1
-                        swap_time += 1
-                        break
-            else:
-                candy_count = 0
-        max_candy = max(max_candy, candy_count)
+    x_length -= 1
 
+    # 세로 축 최대 길이 파악
+    index = pos_y
+    y_length = 0
+    while index < len(candies):
+        if candies[index][pos_x] == check_color:
+            y_length += 1
+        else:
+            break
+        index += 1
 
-    return max_candy
+    index = pos_y
+    while index >= 0:
+        if candies[index][pos_x] == check_color:
+            y_length += 1
+        else:
+            break
+        index -= 1
+
+    y_length -= 1
+    return max(x_length, y_length)
 
 
 n = int(input())
@@ -61,17 +63,19 @@ candies = []
 for i in range(n):
     candies.append(list(input()))
 
-# 빨간 색 최대 가능 개수 찾기
-red_count = find_candy_max(candies, 'C')
-blue_count = find_candy_max(candies, 'P')
-green_count = find_candy_max(candies, 'Z')
-yellow_count = find_candy_max(candies, 'Y')
+directions = [(0, -1), (0, 1), (-1, 0), (1, 0)]
 
-print(red_count)
-print(blue_count)
-print(green_count)
-print(yellow_count)
+max_eat_count = 0
+for y in range(n):
+    for x in range(n):
+        for d in directions:
+            # print(f'test {x} {y}')
+            # 인접 칸과 교환하기
+            shuffle(candies, x, y, d)
 
-max_value = max(red_count, blue_count, green_count, yellow_count)
+            max_eat_count = max(max_eat_count, get_eat_count(candies, x, y))
 
-print(max_value)
+            # 원래대로 돌려 놓기
+            shuffle(candies, x, y, d)
+
+print(max_eat_count)
