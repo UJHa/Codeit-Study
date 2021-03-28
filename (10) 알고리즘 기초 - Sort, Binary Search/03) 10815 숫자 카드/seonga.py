@@ -1,4 +1,4 @@
-# 퀵 정렬과 이진탐색을 이용하여 문제 풀이 
+# 퀵 정렬과 이진탐색을 이용하여 문제 풀이 (Python3 시간초과 PyPy3 정답)
 
 # 두 요소의 위치를 바꿔주는 helper function
 def swap_elements(my_list, index1, index2):
