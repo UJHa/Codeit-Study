@@ -5,23 +5,20 @@ n, k 인풋
 가장 큰 수에 사용된 팀 카드 삭제, 그 팀 카드를 사용한 공유X팀 카드 값 삭제
 제외 과정을 count로 세 가면서 k에 도달하면 멈추기
 멈춘 시점에서 공유X팀 카드 최대값 리턴
-
-
-
 '''
 
 def ericard():
 
     n, k = map(int, input().split())
     count = 0
-    shared_team_card = [list(map(int, input().split())) for i in range(2)]
-    multiple_card = {(shared, team):shared*team for shared in shared_team_card[0] for team in shared_team_card[1]}
-    multiple_card_tuple = list(multiple_card.items())
-    multiple_card_sorted = sorted(multiple_card.values(), reverse=True)
+    shared_team_card = [list(map(int, input().split())) for i in range(2)] # 공유카드 + 팀카드 리스트
+    multiple_card = {(shared, team):shared*team for shared in shared_team_card[0] for team in shared_team_card[1]} # 공유카드 * 팀카드로 나올 수 있는 모든 경우를 딕셔너리로 저장.(brute force)
+    multiple_card_tuple = list(multiple_card.items()) # 위 딕셔너리 리스트로 변환 ((shared * team), result)
+    multiple_card_sorted = sorted(multiple_card.values(), reverse=True) # 공유카드*팀카드 값을 내림차순 순으로 정렬
 
     while count < k:
         saved_tuple = []
-        delete_card = 0
+        delete_card = 0 # 버릴 공유 카드 지정
         for tuple in multiple_card_tuple:
             if tuple[1] == multiple_card_sorted[0]:
                 delete_card = tuple[0][1]

@@ -1,84 +1,51 @@
 '''
 행,열 개수와 사탕 리스트 인풋
-각 행의 좌표에 대해 1. 우측수 2.아래쪽 수 와 교환 시행(오른쪽으로 n-1번, 아래쪽으로 1번)
-위 행동을 한번씩 내려오면서 (n-1)번 반복하면 모든 교환 케이스
-교환 행동 할때마다 케이스 검사, 연속하는 개수 계산하여 이전 최대값과 교환
-케이스검사(check max): 모든 좌표에 대해 상하로 검사 + 모든 좌표에 대해 좌우로 검사
-최대값 반환
+serial_max = 0 으로 초기화
+각 좌표마다 check changed(for문 2번) (해당 문자에 대해서만 체크)(오른쪽, 아래쪽과 바꾼 경우만 체크하기)
+check changed로 바꾼 경우에 대해 연속한 사탕 최대 개수 출력하고 기존 serial_max와 비교
+serial max 반환
 '''
 
 import copy
 
-def check_max(new_array, max_eatable):
+def check_changed_board(board, y, x):
+    color = board(y, x)
+    changed_board_row = copy.deepcopy(board)
+    changed_board_col = copy.deepcopy(board)
+    up_tag = 0
+    down_tag = 0
+    count_updown = 1
+    serial_max_updown = 1
 
-    n = len(new_array)
-    max_length = 0
+    right_tag = 0
+    left_tag = 0
+    count_updown = 1
+    serial_max_updown = 1
 
-    for i in range(n):  # (i, j) =(y, x)
-        for j in range(n):
+    check_changed = 0
 
-            length = 1
-            updown_count = 1
-            updown = [1, 1]
-            while sum(updown) > 0:
-                if updown[0] == 1:
-                    if i - updown_count < 0:
-                        updown[0] = 0
-                    else:
-                        if new_array[i - updown_count][j] == new_array[i][j]: length += 1
-                        else: updown[0] = 0
-                if updown[1] == 1:
-                    if n - 1 < i + updown_count:
-                        updown[1] = 0
-                    else:
-                        if new_array[i + updown_count][j] == new_array[i][j]: length += 1
-                        else:updown[1] = 0
-                updown_count += 1
-            max_length = max(max_length, length)
+    while up_tag*down_tag == 0:
+        if y - count_updown < 0:
+            up_tag = 1
+        else:
+            if color != changed_board_col[y-count_updown][x]:
 
-            length = 1
-            leftright_count = 1
-            leftright = [1, 1]
-            while sum(leftright) > 0:
-                if leftright[0] == 1:
-                    if j - leftright_count <0:
-                        leftright[0] = 0
-                    else:
-                        if new_array[i][j - leftright_count] == new_array[i][j]: length += 1
-                        else: leftright[0] = 0
-                if leftright[1] == 1:
-                    if n - 1 < j + leftright_count:
-                        leftright[1] = 0
-                    else:
-                        if new_array[i][j + leftright_count] == new_array[i][j]: length += 1
-                        else: leftright[0] = 0
-                leftright_count += 1
-            max_length = max(max_length, length)
 
-    return max(max_eatable, max_length)
 
-def candy_game():
 
-    max_eatable = 0
-    check_count = 0
 
+
+
+
+
+def bomboni():
+
+    serial_max = 0
     n = int(input())
-    candy_array = [list(map(str, input())) for _ in range(n)]
+    board = [list(map(str, input())) for _ in range(n)]
 
-    for i in range(n-1): # (i,j) == (y,x)
-        for j in range(n):
-            new_array = copy.deepcopy(candy_array)
-            if j < n - 1: # 좌우 교환은 j가 우측 끝이 아닐 경우만
-                new_array[i][j], new_array[i][j+1] = new_array[i][j+1], new_array[i][j]
-                max_row = check_max(new_array, max_eatable)
-                new_array[i][j], new_array[i][j + 1] = new_array[i][j + 1], new_array[i][j]
+    for y in range(n - 1): # 1~n-1열까지 아래랑 교체
+        for x in range(n - 1): # 1~n-1행까지 오른쪽과 교체
+            serial_max = max(serial_max, check_changed_board(board, y, x))
 
-            new_array[i][j], new_array[i+1][j] = new_array[i+1][j], new_array[i][j]
-            max_col = check_max(new_array, max_eatable)
-            max_eatable = max(max_col, max_row)
-
-    print(max_eatable)
-
-    return 0
-
-candy_game()
+bomboni()
