@@ -5,7 +5,7 @@ _, N = map(int, stdin.readline().split())
 LAN_LST = list(map(int, stdin.readlines()))
 
 start_value = 1   # 0으로 하면 zero division error 발생 
-end_value = max(LAN_LST) # 전체 랜선의 합을 필요한 랜선의 개수만큼 나눈 값까지 반복하며 탐색
+end_value = max(LAN_LST) 
 answer = 0  # 랜선 최대 길이를 담을 변수 
 
 while start_value <= end_value:  
