@@ -6,6 +6,7 @@ overtake time
 3. 이진탐색으로 정리한 리스트에서 찾기
 4. 개수 몇장인지 정리한 리스트에서 뽑아서 정답 리스트에 어펜드
 '''
+
 def quicksort(list_a):
 
     if len(list_a) <= 1 : return list_a
@@ -16,7 +17,7 @@ def quicksort(list_a):
             if i < pivot: less_arr.append(i)
             elif i > pivot: big_arr.append(i)
             else: equal_arr.append(i)
-        return quicksort(less_arr) + equal_arr +quicksort(big_arr)
+        return quicksort(less_arr) + equal_arr + quicksort(big_arr)
 
 
 def return_idx_bin_search(list_a, m, low, high):
