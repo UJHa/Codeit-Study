@@ -1,3 +1,4 @@
+
 n = int(input())
 arr = [list(input()) for _ in range(n)]  
 emotion = int(input())
@@ -12,8 +13,8 @@ temp = copy.deepcopy(arr)
 
 
 if emotion == 1:
-    print(arr)
-    
+    for i in range(len(arr)):
+        print(''.join(arr[i]))    
     
 elif emotion == 2:
     
@@ -27,8 +28,9 @@ elif emotion == 2:
                     
         i += 1
         j -= 1
-            
-    print(arr)
+      
+    for i in range(len(arr)):
+        print(''.join(arr[i]))
             
 elif emotion == 3:
     while i < len(arr)-(n//2):
@@ -39,4 +41,5 @@ elif emotion == 3:
         i += 1
         j -= 1
         
-    print(arr)
+    for i in range(len(arr)):
+        print(''.join(arr[i]))
