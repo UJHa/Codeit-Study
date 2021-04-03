@@ -12,18 +12,18 @@ start = 1  # 최소 길이
 end = max(line_list)  # 최대 길이
 
 while start <= end:
-    max_length = (start + end) // 2
+    length = (start + end) // 2
     count = 0
 
     for i in line_list:
-        count += (i // max_length)
+        count += (i // length)
 
     # 'N 개보다 많이 만드는 것도 N 개를 만드는 것에 포함된다' 라는 문제의 조건
     if count >= N:
         start = max_length + 1
-        ans = max(ans, max_length)
+        ans = max(ans, length)
 
     else:
-        end = max_length - 1
+        end = length - 1
 
 print(ans)
