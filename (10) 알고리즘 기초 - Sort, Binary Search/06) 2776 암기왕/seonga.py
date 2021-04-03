@@ -1,35 +1,36 @@
-# 수찾기와 동일한데 왜 틀렸는지 모르겠음.
+# 이진탐색을 재귀함수로 구현하면 시간초과
+from sys import stdin
 
 # 이진탐색 
 def binary_search(value, lst, start_index = 0, end_index = None):
+     
+    end_index = len(lst) -1
     
-    if end_index == None:
-        end_index = len(lst)-1
-
-    mid_point = (start_index+end_index)//2
+    while start_index<= end_index:
+        mid_index = (start_index+end_index)//2
+        
+        if lst[mid_index] == value:
+            return 1
+        elif lst[mid_index] > value:
+            end_index = mid_index - 1
+        elif lst[mid_index] < value:
+            start_index = mid_index + 1
+            
+    return 0
     
-    if start_index > end_index:
-        return 0
-    
-    if value == lst[mid_point]:
-        return 1
-    
-    elif value > lst[mid_point]:
-        return binary_search(value, lst, start_index = mid_point + 1, end_index = end_index)
-    elif value < lst[mid_point]:
-        return binary_search(value, lst, start_index = 0, end_index = mid_point - 1)
 
-T = int(input())
+T = int(stdin.readline())  # 테스트 개수만큼 돌아가야함.
 
-N = int(input())
-LST1= list(map(int, input().split()))
+for i in range(T):
 
-M = int(input())
-LST2= list(map(int, input().split()))
+    N = int(stdin.readline())
+    LST1= list(map(int, stdin.readline().split()))
 
-# quicksort(LST1)
-LST1.sort()
+    M = int(stdin.readline())
+    LST2= list(map(int, stdin.readline().split()))
 
-for value in LST2:
-    print(binary_search(value, LST1))
+    LST1.sort()
+
+    for value in LST2:
+        print(binary_search(value, LST1))
     
