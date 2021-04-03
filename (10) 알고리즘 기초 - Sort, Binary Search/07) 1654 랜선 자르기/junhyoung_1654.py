@@ -20,7 +20,7 @@ while start <= end:
 
     # 'N 개보다 많이 만드는 것도 N 개를 만드는 것에 포함된다' 라는 문제의 조건
     if count >= N:
-        start = max_length + 1
+        start = length + 1
         ans = max(ans, length)
 
     else:
