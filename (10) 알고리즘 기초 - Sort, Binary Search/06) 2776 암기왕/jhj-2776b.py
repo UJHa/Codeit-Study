@@ -17,18 +17,23 @@ def binary_search(list_a, m, low, high):
 def compare_memo():
 
     t = int(input())
-    n = int(input())
-    memo1 = list(map(int, input().split()))
-    m = int(input())
-    memo2 = list(map(int, input().split()))
+    memo1 = []
+    memo2 = []
 
-    memo1.sort()
+    for i in range(t):
+        n = int(input())
+        memo1.append(list(map(int, input().split())))
+        m = int(input())
+        memo2.append(list(map(int, input().split())))
 
-    for num in memo2:
-        if binary_search(memo1, num, low = 0, high = n - 1) > -1:
-            print(1)
-        else:
-            print(0)
+    for case in range(t):
+        memo1[case].sort()
+
+        for num in memo2[case]:
+            if binary_search(memo1[case], num, low = 0, high = n - 1) > -1:
+                print(1)
+            else:
+                print(0)
 
     return 0
 
