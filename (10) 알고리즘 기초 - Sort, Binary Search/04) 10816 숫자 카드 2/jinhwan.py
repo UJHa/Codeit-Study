@@ -1,4 +1,4 @@
-# (10815) 숫자 카드
+# (10816) 숫자 카드 2
 
 # 재귀 풀이
 # def is_in_list(num, num_lst, start, end):
@@ -37,6 +37,14 @@ num_list = list(map(int, input().split()))
 
 num_list.sort()
 
+# 각 숫자의 개수를 저장하는 dictionary 사용(key : 리스트 안의 숫자, value : 숫자의 개수)
+count_dict = {}
+for n in num_list:
+    if count_dict.get(n) is None:
+        count_dict[n] = 1
+    else:
+        count_dict[n] += 1
+
 m = int(input())
 check_list = list(map(int, input().split()))
 
@@ -44,6 +52,6 @@ check_list = list(map(int, input().split()))
 for ch in check_list:
     # if is_in_list(ch, num_list, 0, len(num_list) - 1):
     if is_in_list(ch, num_list):
-        print(1, end=' ')
+        print(count_dict[ch], end=' ')
     else:
         print(0, end=' ')
