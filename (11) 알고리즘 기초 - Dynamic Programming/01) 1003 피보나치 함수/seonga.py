@@ -1,4 +1,4 @@
-# Memorization방식으로 0, 1이 호출되는 횟수를 저장함.
+# Tabluation방식으로 0, 1이 호출되는 횟수를 저장함.
 zero = [1, 0]
 one = [0, 1]
 
