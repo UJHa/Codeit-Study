@@ -7,7 +7,7 @@ for i in range(N):
         tile[i] = 1
         continue
     elif i == 1:  # 입력받은 N이 2일 때 -> 2x2 사각형
-        tile[i] = 3
+        tile[i] = 2
         continue
     tile[i] = tile[i-1] + tile[i-2]  # 점화식 적용 
     
