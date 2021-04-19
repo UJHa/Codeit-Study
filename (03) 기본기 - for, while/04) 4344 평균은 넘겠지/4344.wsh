@@ -1,0 +1,12 @@
+C = int(input())
+for i in range(C):
+    cnt = 0
+    N = list(map(int, input().split()))
+    N.pop(0)
+    sum_r = sum(N) / len(N)
+    for i in N:
+        if i > sum_r:
+            cnt += 1
+    anw = cnt/len(N)*100
+    print("%0.3f" %anw,end='')
+    print("%")
