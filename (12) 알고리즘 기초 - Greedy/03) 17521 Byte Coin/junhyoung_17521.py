@@ -1,6 +1,6 @@
 # 17521 Byte Coin
 # 메모리 : 28776 KB, 시간 : 68 ms
-
+# 문제 링크 : https://www.acmicpc.net/problem/17521
 """
 살때 : 값이 떨어지고 있는 상태일때 다음날 오르면 삼
 
