@@ -1,19 +1,12 @@
 # 2차 풀이(정확도 100% 성공)
 def solution(numbers, hand):
     answer = ''
-    pos_num_dict = {}
-    x, y = 0, 0
-    for i in range(1, 12 + 1):
-        if i == 10:
-            pos_num_dict['*'] = [x, y]
-        elif i == 11:
-            pos_num_dict[0] = [x, y]
-        elif i == 12:
-            pos_num_dict['#'] = [x, y]
-        else:
-            pos_num_dict[i] = [x, y]
-
-        x, y = (x + 1) % 3, i // 3
+    # for문 없이 직접 12개 키패드 좌표 지정
+    pos_num_dict = {1: (0, 0), 2: (1, 0), 3: (2, 0),
+                    4: (0, 1), 5: (1, 1), 6: (2, 1),
+                    7: (0, 2), 8: (1, 2), 9: (2, 2),
+                    '*': (0, 3), 0: (1, 3), '#': (2, 3)
+                    }
 
     left_pos = pos_num_dict['*']
     right_pos = pos_num_dict['#']
