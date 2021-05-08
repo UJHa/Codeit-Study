@@ -2,6 +2,14 @@
 import itertools
 
 
+def calculator(a, b, p):
+    if p == '*':
+        return a * b
+    if p == '+':
+        return a + b
+    return a - b
+
+
 def solution(expression):
     split_datas = []
 
@@ -22,12 +30,8 @@ def solution(expression):
             # 하나의 연산자에 대한 처리를 진행하는 반복문
             while operator in temp_list:
                 op_index = temp_list.index(operator)
-                if operator == '+':
-                    temp_list[op_index - 1] = temp_list[op_index - 1] + temp_list[op_index + 1]
-                elif operator == '*':
-                    temp_list[op_index - 1] = temp_list[op_index - 1] * temp_list[op_index + 1]
-                elif operator == '-':
-                    temp_list[op_index - 1] = temp_list[op_index - 1] - temp_list[op_index + 1]
+
+                temp_list[op_index - 1] = calculator(temp_list[op_index - 1], temp_list[op_index + 1], operator)
 
                 del temp_list[op_index:op_index + 2]
         max_reward = max(max_reward, abs(temp_list[0]))
