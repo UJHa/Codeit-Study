@@ -4,7 +4,7 @@ def get_remove_impossible_char(id):
     for s in id:
         if s.isalpha() \
                 or s.isdigit() \
-                or s in ['-', '_', '.']:
+                or s in '-_.':
             result += s
     return result
 
@@ -17,9 +17,11 @@ def get_trim_dot(id):
     result = id
 
     # 4단계 마침표 맨 앞, 맨뒤 제거
-    if result[0] == '.':
+    first = result[0]
+    last = result[0]
+    if first == '.':
         result = result[1:]
-    if len(result) > 1 and result[-1] == '.':
+    if last == '.':
         result = result[:-1]
 
     return result
