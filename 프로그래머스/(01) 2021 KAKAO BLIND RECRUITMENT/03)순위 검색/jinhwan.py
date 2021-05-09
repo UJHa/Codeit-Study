@@ -1,4 +1,6 @@
-#1차 실패(정확성은 100%, 효율성 0%)>> 속도 개선 필요
+# 2차 실패(정확성은 100%, 효율성 0%)
+# 1차 방식 : info 데이터 내부의 columns 하나씩 비교하는 방식
+# 2차 방식 : info의 column들을 가져와서 일치하는 데이터의 index에 접근하여 비교하는 방식
 def get_query_list(query):
     result = []
     query_list = [q.split() for q in query]
@@ -12,28 +14,31 @@ def get_query_list(query):
 
 
 def get_query_count(info, query):
-    result = 0
-    for i in info:
-        print(i)
-        if is_true_data(i, query):
-            result += 1
+    result = [i for i in range(len(info))]
+    score_index = len(query) - 1
+    for i, q in enumerate(query):
+        if i != score_index:
+            result = get_true_list(q, [data[i] for data in info], result)
+        else:
+            result = get_true_score_list(q, [data[i] for data in info], result)
 
+    return len(result)
+
+
+def get_true_list(query_data, column_list, true_list):
+    result = []
+    for i in true_list:
+        if column_list[i] == query_data or query_data == '-':
+            result.append(i)
     return result
 
 
-def is_true_data(data, query):
-    if int(query[-1]) > int(data[-1]):
-        return False
-    for i, q in enumerate(query):
-        if query[i] == '-' or query[i] == data[i]:
-            continue
-        else:
-            if i == len(query) - 1:
-                return True
-            else:
-                return False
-
-    return True
+def get_true_score_list(query_data, column_list, true_list):
+    result = []
+    for i in true_list:
+        if int(column_list[i]) >= int(query_data):
+            result.append(i)
+    return result
 
 
 def solution(info, query):
@@ -43,7 +48,6 @@ def solution(info, query):
     info_list = [i.split() for i in info]
 
     for q in query_list:
-        print(q)
         answer.append(get_query_count(info_list, q))
 
     return answer
