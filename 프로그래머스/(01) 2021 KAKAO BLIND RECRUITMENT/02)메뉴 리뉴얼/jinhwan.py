@@ -1,52 +1,39 @@
-# 1차 풀이 실패(정확성 90%), 실패사유 : 시간 초과
-
+# 1차 풀이 성공(정확성 100%)
+# 1차 풀이 : 모든 문자 리스트 생성 후 그에 대한 경우의 수별로 최대의 코스를 반환
+# 2차 풀이 : orders에 들어 있는 코스에 대해서만 경우의 수를 key로 개수를 value로 해서 2개 이상인 코스들을 반환
 from itertools import combinations
-
-
-def get_course_count(orders, key):
-    result = 0
-
-    for order in orders:
-        can_make_course = True
-
-        for k in key:
-            if k not in order:
-                can_make_course = False
-                break
-
-        if can_make_course:
-            result += 1
-
-    return result
 
 
 def solution(orders, course):
     answer = []
-    alphabets = []
 
+    course_dict = {}
     for order in orders:
-        for o in order:
-            if o not in alphabets:
-                alphabets.append(o)
-
-    alphabets.sort()
+        for c in course:
+            for tu in combinations(order, c):
+                key = ''.join(sorted(tu))
+                if course_dict.get(key) is None:
+                    course_dict[key] = 1
+                else:
+                    course_dict[key] += 1
 
     for c in course:
         max_count = 0
         course_list = []
-        for tu in combinations(alphabets, c):
-            key = ''.join(tu)
-            course_count = get_course_count(orders, key)
-
-            if max_count < course_count:
-                course_list.clear()
-                course_list.append(key)
-                max_count = course_count
-            elif max_count == course_count:
-                course_list.append(key)
-
+        for k, v in course_dict.items():
+            if c == len(k):
+                if max_count < v:
+                    course_list = [k]
+                    max_count = v
+                elif max_count == v:
+                    course_list.append(k)
         if max_count > 1:
             answer += course_list
+
+    for i, val in enumerate(answer):
+        alphabet_list = list(val)
+        alphabet_list.sort()
+        answer[i] = ''.join(alphabet_list)
 
     answer.sort()
 
