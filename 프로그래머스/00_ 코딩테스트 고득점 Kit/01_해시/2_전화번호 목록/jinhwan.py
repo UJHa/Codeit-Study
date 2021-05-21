@@ -1,26 +1,23 @@
 # 1차 풀이 : 정확성 11,14번 실패, 효율성 성공
+# 2차 풀이 : 정확성 성공, 효율성 4번 실패
 def solution(phone_book):
     answer = True
-    length_list = []
+    prefix_dict = {}
 
     for p in phone_book:
-        length_list.append(len(p))
+        if prefix_dict.get(len(p)) is None:
+            prefix_dict[len(p)] = [p]
+        else:
+            prefix_dict[len(p)].append(p)
 
-    length_list = list(set(length_list))
-
-    check_dict = {}
-    for p in phone_book:
-        for l in length_list:
-            if len(p) < l:
+    for key, value in prefix_dict.items():
+        num_length = key
+        num_list = value
+        for p in phone_book:
+            if len(p) <= num_length:
                 continue
-            if check_dict.get(p[:l]) is None:
-                check_dict[p[:l]] = 1
-            elif check_dict[p[:l]] >= 1:
-                check_dict[p[:l]] += 1
-
-    for val in check_dict.values():
-        if val > 1:
-            return False
+            if p[:num_length] in num_list:
+                return False
 
     return answer
 
