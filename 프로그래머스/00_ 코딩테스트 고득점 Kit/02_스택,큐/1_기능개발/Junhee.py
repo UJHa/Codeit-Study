@@ -6,10 +6,8 @@ from collections import deque
 
 def solution(progresses, speeds):
     answer = []
-    dq_pro = deque()
-    dq_pro.extend(progresses)
-    dq_spd = deque()
-    dq_spd.extend(speeds)
+    dq_pro = deque(progresses)
+    dq_spd = deque(speeds)
     
     while dq_pro:
         ans = 0
