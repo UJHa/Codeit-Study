@@ -26,7 +26,7 @@ def find_index(origin_list, word):
         
     return blank_lst
         
-def get_multi_index(origin_list, index):
+def get_multi_index(origin_list, index):  # 인덱스 여러 개인 경우 
     return [origin_list[i] for i in index]
 
 def solution(geners, plays):
@@ -55,19 +55,27 @@ def solution(geners, plays):
         while len(max_key_plays) > 0:
         
             max_value = max(max_key_plays)
-            max_index = plays.index(max_value) 
+            max_index = find_index(plays, max_value)
             
-            output_lst.append(max_index)
+            if len(max_index) == 1:
+                output_lst.append(max_index[0])
+                
+            else:
+                for index_value in max_index:
+                    
+                    if index_value not in sum(final_lst, []):
+                        output_lst.append(index_value)
+                        
             max_key_plays.remove(max_value)
 
             if len(output_lst)==2:
-                print(output_lst)
                 break
             
-            final_lst.append(output_lst)
+        final_lst.append(output_lst)
         
         dict_genre_sum.pop(max_key)
             
     return sum(final_lst, [])
+
 
 solution(["classic", "pop", "classic", "classic", "pop"], [500, 600, 150, 800, 2500])
