@@ -1,22 +1,22 @@
-# 주식가격(실패)
-# 정확성: 66.7(10/10)
-# 효율성: 0.0(5/5) 시간 초과
-# 합계: 66.7 / 100.0
+# 주식가격(성공)
+# 정확성: 66.7
+# 효율성: 33.3
+# 합계: 100.0 / 100.0
+from collections import deque
+
+
 def solution(prices):
     answer = []
-    prices_count = len(prices)
-    for i, p in enumerate(prices):
-        is_consecutive = True
-        end_index = 0
-        for j, rp in zip(range(i + 1, prices_count), prices[i + 1:]):
-            if rp < p:
-                is_consecutive = False
-                end_index = j
+    price_queue = deque(prices)
+
+    while price_queue:
+        price = price_queue.popleft()
+        num = 0
+        for p in price_queue:
+            num += 1
+            if price > p:
                 break
-        if is_consecutive:
-            answer.append(prices_count - 1 - i)
-        else:
-            answer.append(end_index - i)
+        answer.append(num)
 
     return answer
 
