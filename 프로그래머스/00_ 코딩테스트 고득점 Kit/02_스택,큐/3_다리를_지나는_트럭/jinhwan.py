@@ -1,6 +1,15 @@
 # 다리를 지나는 트럭(성공)
 # 정확성: 100.0
 # 합계: 100.0 / 100.0
+def move_trucks(cross_list):
+    for c in cross_list:
+        c[1] += 1
+
+
+def is_finish_truck(truck_distance, bridge_length):
+    return truck_distance == bridge_length
+
+
 def solution(bridge_length, weight, truck_weights):
     answer = 0
 
@@ -17,26 +26,21 @@ def solution(bridge_length, weight, truck_weights):
         answer += 1
         if len(crossing_list) != 0:
             # 다리 위의 트럭들 1칸씩 이동
-            for c in crossing_list:
-                c[1] += 1
-
+            move_trucks(crossing_list)
             # 이동한 트럭들 중에서 다리를 건넜으면 crossing_list에서 제거
-
-            crossing_truck_data = crossing_list[0]
-            if crossing_truck_data[1] == bridge_length:
-                crossing_list.pop(0)
-                crossing_truck_weight = crossing_truck_data[0]
-                bridge_weight -= crossing_truck_weight
-                finish_list.append(crossing_truck_weight)
+            if is_finish_truck(crossing_list[0][1], bridge_length):
+                crossing_truck_data = crossing_list.pop(0)
+                c_truck_weight = crossing_truck_data[0]
+                bridge_weight -= c_truck_weight
+                finish_list.append(c_truck_weight)
 
         # 매 초마다 대기 트럭 있으면 bridge에 추가
         if len(wait_list) != 0:
-            wait_truck_weight = wait_list[0]
-
-            if bridge_weight + wait_truck_weight <= weight:
+            w_truck_weight = wait_list[0]
+            if bridge_weight + w_truck_weight <= weight:
                 wait_list.pop(0)
-                crossing_list.append([wait_truck_weight, 0])
-                bridge_weight += wait_truck_weight
+                crossing_list.append([w_truck_weight, 0])
+                bridge_weight += w_truck_weight
 
     print(wait_list, crossing_list, finish_list)
 
