@@ -10,17 +10,17 @@ def solution(jobs):
 
     heap_list = []
 
-    start, now, i = -1, 0, 0
+    work_start, now, i = -1, 0, 0
     while i < len(jobs):
         for j in jobs:
-            if start < j[0] <= now:
+            if work_start < j[0] <= now:
                 heapq.heappush(heap_list, (j[1], j[0]))
         if heap_list:
             process_time, request_time = heapq.heappop(heap_list)
-            start = now
-            end_work_time = now + process_time
-            answer += end_work_time - request_time
-            now = end_work_time
+            work_start = now
+            work_end = now + process_time
+            answer += work_end - request_time
+            now = work_end
             i += 1
         else:
             now += 1
