@@ -17,7 +17,7 @@ def solution(n, computers):
         find_queue.append(remain_list[0])
         while len(find_queue) > 0:
             # 들어있는 큐에서 순차적으로 pop하기(0번 인덱스)
-            c_index = find_queue.pop()
+            c_index = find_queue.popleft()
             # 연결되어 있는 다른 컴퓨터에서 pop으로 제거했을 수도 있으므로 remain_list에 있는지 확인 조건 필요
             if c_index in remain_list:
                 remain_list.remove(c_index)
