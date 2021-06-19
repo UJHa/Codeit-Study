@@ -8,21 +8,13 @@ def solution(phone_book):
     prefix_dict = {}
 
     for p in phone_book:
-        if prefix_dict.get(len(p)) is None:
-            prefix_dict[len(p)] = {p: 1}
-        else:
-            if prefix_dict[len(p)].get(p) is None:
-                prefix_dict[len(p)][p] = 1
-            else:
-                prefix_dict[len(p)][p] += 1
+        prefix_dict[p] = 1
 
-    for key, value in prefix_dict.items():
-        num_length = key
-        num_dict = value
-        for p in phone_book:
-            if len(p) <= num_length:
-                continue
-            if num_dict.get(p[:num_length]) is not None:
+    for number in phone_book:
+        temp = ''
+        for s in number:
+            temp += s
+            if temp in prefix_dict and temp != number:
                 return False
 
     return answer

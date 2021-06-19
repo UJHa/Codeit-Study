@@ -1,23 +1,11 @@
+from collections import Counter
+
+
 def solution(participant, completion):
-    answer = ''
-    completion_dict = {}
-    for c in completion:
-        if completion_dict.get(c) is None:
-            completion_dict[c] = 1
-        else:
-            completion_dict[c] += 1
+    result_dict = dict(Counter(participant) - Counter(completion))
 
-    for p in participant:
-        if completion_dict.get(p) is None:
-            completion_dict[p] = 0
+    return list(result_dict)[0]
 
-        if completion_dict[p] == 0:
-            answer = p
-            break
-        else:
-            completion_dict[p] -= 1
-
-    return answer
 
 print(solution(["leo", "kiki", "eden"], ["eden", "kiki"])) # "leo"
 print(solution(["marina", "josipa", "nikola", "vinko", "filipa"], ["josipa", "filipa", "marina", "nikola"])) # "vinko"
