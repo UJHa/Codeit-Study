@@ -9,10 +9,10 @@ from collections import deque
 
 
 def solution(bridge_length, weight, truck_weights):
-    answer = 0
-    trucks = deque(truck_weights)
-    bridge = deque()
-    bridge_weight = deque()
+    answer = 0  # 걸린 시간 
+    trucks = deque(truck_weights)  # 남은 트럭들
+    bridge = deque()  # 다리 위 트럭들(앞으로 남은 거리를 값으로 가짐)
+    bridge_weight = deque()  # 다리 위 각 트럭별 무게
 
     # 첫 번째 트럭 올리기 
     bridge.append(bridge_length-1)
@@ -25,6 +25,13 @@ def solution(bridge_length, weight, truck_weights):
         if trucks[0] <= weight and len(bridge) <= bridge_length:
             for i, j in enumerate(bridge):
                 bridge[i] -= 1
+            
+            # 다리 맨 앞의 트럭이 도착한 경우
+            if bridge[0] < 0:
+                bridge.popleft()
+                weight += bridge_weight.popleft()
+
+            # 다음 트럭 올리기 
             bridge.append(bridge_length-1)
             bridge_weight.append(trucks[0])
             weight -= trucks.popleft()
