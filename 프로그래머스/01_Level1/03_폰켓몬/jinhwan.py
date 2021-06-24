@@ -1,14 +1,16 @@
-# 폰켓몬(실패)
-# 06/24 09:10~
-# 정확성: 30.0
-# 합계: 30.0 / 100.0
-from itertools import combinations
-
-
+# 폰켓몬(성공)
+# 06/24 09:10~09:35
+# 정확성: 100.0
+# 합계: 100.0 / 100.0
 def solution(nums):
     answer = 0
-    for i in combinations(nums, len(nums) // 2):
-        answer = max(answer, len(set(i)))
+    pick_count = len(nums) // 2
+    temp = set(nums)
+    if len(temp) < pick_count:
+        answer = len(temp)
+    else:
+        answer = pick_count
+
     return answer
 
 
