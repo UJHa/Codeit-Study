@@ -23,7 +23,7 @@ def solution(p):
 
 
 def divide_str(w):
-    """문자열 w를 u와 v로 분리하는 함수(2) 
+    """문자열 w를 u와 v로 분리하는 함수
 
     Args:
         w: 균형잡힌 문자열
@@ -51,7 +51,7 @@ def divide_str(w):
 
 
 def check_str(w):
-    """문자열 w가 올바른지 확인하는 함수(3)
+    """문자열 w가 올바른지 확인하는 함수
     
     Args:
         w: 균형잡힌 문자열  
