@@ -23,7 +23,6 @@ def solution(name):
         if sum(min_name) == 0: 
             break
 
-
         left, right = 1, 1
         
         while min_name[idx - left] == 0:  # 왼쪽으로 움직이면서 최소 이동값 
@@ -32,11 +31,11 @@ def solution(name):
         while min_name[idx + right] == 0:  # 오른쪽으로 움직이면서 최소 이동값
             right += 1
             
-        if left > right:
-            idx += right
+        if left < right:  # left 가 right 보다 작다는 것을 먼저 비교해야함. 아니면 test11 에서 실패 
+            idx += -left
             
         else:
-            idx -= left
+            idx += right
             
         answer += min(left, right)
         
