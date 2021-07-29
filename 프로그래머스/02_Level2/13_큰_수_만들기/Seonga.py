@@ -1,23 +1,18 @@
-# 시간 초과로 실패 
-from itertools import combinations
 
 def solution(number, k):
-
-    number = list(number)
-
-    com_lst = list(combinations(number, len(number)-k))
-
-    com_value_lst = []
-
-    for tuple_ in com_lst:
-
-        final_tuple_value = ''
-
-        for tuple_value in tuple_:
-             final_tuple_value += tuple_value 
-
-        com_value_lst.append(int(final_tuple_value))
-
-    answer = max(com_value_lst)
     
+    stack = [number[0]]
+
+    for num in number[1:]:
+
+        while len(stack) > 0 and stack[-1] < num and k > 0:  # 입력값이 stack 있는 값보다 크고 k 가 남아있을 때까지 반복 
+
+            k -= 1
+
+            stack.pop()  # 기존에 있는 값 제거 
+
+        stack.append(num)  
+
+    answer = ''.join(stack)
+
     return str(answer)
