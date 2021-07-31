@@ -1,18 +1,19 @@
 def solution(number, k):
     '''k개의 수를 제거했을 때 얻을 수 있는 가장 큰 숫자
-
-    Args:
-        number: 1~1,000,000 크기의 숫자인 문자열
-        k: 1~(len(number)-1) 크기의 정수
-
-    Returns:
-        Answer: 만들 수 있는 가장 큰 숫자인 문자열
+    1. Stack을 활용해 number 중 가장 큰 수가 맨 앞으로 올 수 있도록 한다. 
+    2. 나머지 후순위 수들을 합쳐 완성한다 
     '''
-    num_list = [int(i) for i in number]
+    stack = [number[0]]
 
-    answer = ""
-    for i in range(len(number)-k):
-        answer += str(num_list[i])
+    for num in number[1:]:
+        while stack and stack[-1] < num and k > 0:
+            stack.pop()
+            k -= 1
+    
+        stack.append(num)
 
-    return answer
+    if k != 0:
+        stack = stack[:-k]
+
+    return ''.join(stack)
 
